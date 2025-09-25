@@ -33,9 +33,11 @@ pip install -U discord.py
 Edit the `DISCORD_TOKEN`, `PARTNERSHIP_CHANNEL_ID`, and `EMOJI` variables in the script:
 
 ```python
-DISCORD_TOKEN = "YOUR_BOT_TOKEN"
-PARTNERSHIP_CHANNEL_ID = 123456789012345678  # Your channel ID
-EMOJI = "⭐"  # Custom emoji for partnership messages
+# === CONFIGS === 
+DISCORD_TOKEN = "" # Bot Token 
+PARTNERSHIP_CHANNEL_ID = 1409569987424948306 # Channed ID 
+EMOJI = "⭐" # Emoji 
+# ===============================
 ```
 
 ---
@@ -45,7 +47,7 @@ EMOJI = "⭐"  # Custom emoji for partnership messages
 1. Run the bot:
 
 ```bash
-python bot.py
+python partnershipbot.py
 ```
 
 2. Use the `/partnership manager` command in Discord.
