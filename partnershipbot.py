@@ -1,16 +1,16 @@
 # Copyright (c) 2025 - .rotafn (VortexTeam) - All rights reserved.
-# Questo codice è protetto dalla Licenza Proprietaria VortexTeam (.rotafn).
-# L'uso, la modifica o la distribuzione sono vietati senza autorizzazione scritta.
-# La versione completa della licenza è disponibile su richiesta.
+# This code is protected by the VortexTeam (.rotafn) Proprietary License.
+# Use, modification, or distribution is prohibited without written permission.
+# The full version of the license is available upon request.
 # -------------------
 import discord
 from discord.ext import commands
 from discord import app_commands
 
-# === CONFIGURAZIONE  ===
-DISCORD_TOKEN = ""  # Token bot
-PARTNERSHIP_CHANNEL_ID = 1409569987424948306  # ID canale partnership
-EMOJI = "⭐"  # Emoji mezzo
+# === CONFIGS  ===
+DISCORD_TOKEN = ""  # Bot Token
+PARTNERSHIP_CHANNEL_ID = 1409569987424948306  # Channed ID
+EMOJI = "⭐"  # Emoji 
 # ===============================
 
 intents = discord.Intents.default()
@@ -22,8 +22,8 @@ class PartnershipModal(discord.ui.Modal, title="Invia partnership"):
         self.manager = manager
 
         self.msg_input = discord.ui.TextInput(
-            label="Messaggio partnership",
-            placeholder="Scrivi qui il contenuto della partnership…",
+            label="Partnership message",
+            placeholder="Write the content of the partnership here…"
             style=discord.TextStyle.long,
             max_length=1900,
             required=True
@@ -45,32 +45,23 @@ class PartnershipModal(discord.ui.Modal, title="Invia partnership"):
 
         channel = interaction.client.get_channel(PARTNERSHIP_CHANNEL_ID)
         if not channel:
-            await interaction.response.send_message(
-                "⚠️ Canale partnership non trovato o non accessibile.",
-                ephemeral=True
-            )
+            await interaction.response.send_message("⚠️ Partnership channel not found or not accessible.", ephemeral=True)
             return
 
         try:
-            await channel.send(
-                final_message,
-                allowed_mentions=discord.AllowedMentions(everyone=True, users=True, roles=True)
-            )
-            await interaction.response.send_message("✅ Partnership inviata!", ephemeral=True)
+            await channel.send(final_message, allowed_mentions=discord.AllowedMentions(everyone=True, users=True, roles=True))
+            await interaction.response.send_message("✅ Partnership successfully sent!", ephemeral=True)
         except discord.Forbidden:
-            await interaction.response.send_message(
-                "❌ Non ho i permessi per inviare o pingare @everyone.",
-                ephemeral=True
-            )
+            await interaction.response.send_message("❌ I don’t have permission to send messages or mention", ephemeral=True)
 
 class Partnership(commands.Cog):
     def __init__(self, bot_):
         self.bot = bot_
 
-    partnership = app_commands.Group(name="partnership", description="Gestione partnership")
+    partnership = app_commands.Group(name="partnership", description="Partnership management")
 
-    @partnership.command(name="manager", description="Invia una partnership con manager indicato")
-    @app_commands.describe(manager="Utente manager da menzionare")
+    @partnership.command(name="manager", description="Send a partnership with the specified manager")
+    @app_commands.describe(manager="Manager user to mention")
     async def manager(self, interaction: discord.Interaction, manager: discord.User):
         modal = PartnershipModal(manager=manager)
         await interaction.response.send_modal(modal)
@@ -79,7 +70,7 @@ class Partnership(commands.Cog):
 async def on_ready():
     await bot.add_cog(Partnership(bot))
     await bot.tree.sync()
-    print(f"Bot connesso come {bot.user}")
+    print(f"Bot connected as {bot.user}")
 
 if __name__ == "__main__":
     bot.run(DISCORD_TOKEN)
