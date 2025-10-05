@@ -18,7 +18,7 @@ A simple Discord bot to manage and send partnership messages easily.
 1. **Clone the repository:**
 
 ```bash
-git clone https://github.com/yourusername/PartnershipBot.git
+git clone https://github.com/fnicefire/PartnershipBot.git
 cd PartnershipBot
 ```
 
